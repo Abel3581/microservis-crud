@@ -10,7 +10,6 @@ import java.util.Date;
 @AllArgsConstructor
 @Getter
 @Setter
-@Entity
 public class CartRequest {
 
     private boolean state;
