@@ -1,5 +1,7 @@
 package com.crud.userservice.controller;
 
+import com.crud.userservice.dto.CartRequest;
+import com.crud.userservice.dto.CartResponse;
 import com.crud.userservice.dto.UserRequest;
 import com.crud.userservice.dto.UserResponse;
 import com.crud.userservice.model.Cart;
@@ -34,5 +36,13 @@ public class UserController {
         List<Cart> carts = userService.getCarts(userId);
         return ResponseEntity.status(HttpStatus.OK).body(carts);
     }
+
+    @PostMapping("/saveCart")
+    public ResponseEntity<CartResponse> createCart(@RequestBody CartRequest request){
+        CartResponse response = userService.createCart(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+
 
 }
