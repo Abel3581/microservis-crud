@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
     private final RestTemplate restTemplate;
     @Autowired
     CartFeignClient cartFeignClient;
-    private final CartMapper cartMapper;
+
 
     @Override
     public UserResponse create(UserRequest request) {
@@ -61,9 +61,20 @@ public class UserServiceImpl implements UserService {
     }
     // con openfeign
     @Override
-    public CartResponse createCart(CartRequest request) {
-        CartResponse cart = cartFeignClient.createCart(request);
-        return cart;
+    public CartResponse createCart(Long userId, CartRequest request) {
+        if(userRepository.findById(userId).isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not exist");
+        request.setUserId(userId);
+        return cartFeignClient.createCart(request);
+    }
+
+    @Override
+    public List<CartResponse> getCartByUserId(Long userId) {
+        if(userRepository.findById(userId).isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "user not exist");
+        }
+        List<CartResponse> cartResponses = cartFeignClient.getCartByUserId(userId);
+        return cartResponses;
     }
 
     private User getUser(Long id) {

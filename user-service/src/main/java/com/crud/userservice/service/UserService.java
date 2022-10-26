@@ -16,5 +16,7 @@ public interface UserService {
     List<Cart> getCarts(Long userId);
 
 
-    CartResponse createCart(CartRequest request);
+    CartResponse createCart(Long userId, CartRequest request);
+
+    List<CartResponse> getCartByUserId(Long userId);
 }

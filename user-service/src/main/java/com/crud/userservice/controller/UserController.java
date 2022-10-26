@@ -37,12 +37,18 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(carts);
     }
 
-    @PostMapping("/saveCart")
-    public ResponseEntity<CartResponse> createCart(@RequestBody CartRequest request){
-        CartResponse response = userService.createCart(request);
+    @PostMapping("/saveCart/{userId}")
+    public ResponseEntity<CartResponse> createCart(@PathVariable("userId") Long userId, @RequestBody CartRequest request){
+        CartResponse response = userService.createCart(userId, request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-
+    @GetMapping("/getCarts/{userId}")
+    public ResponseEntity<List<CartResponse>> getCartByUserId(@PathVariable Long userId){
+        List<CartResponse> cartResponses = userService.getCartByUserId(userId);
+        if(cartResponses.isEmpty())
+            return ResponseEntity.noContent().build();
+        return ResponseEntity.status(HttpStatus.OK).body(cartResponses);
+    }
 
 }

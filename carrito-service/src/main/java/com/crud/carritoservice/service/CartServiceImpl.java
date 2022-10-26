@@ -35,6 +35,9 @@ public class CartServiceImpl implements CartService{
 
     @Override
     public List<CartResponse> getCartByUserId(Long userId) {
+        if(cartRepository.findById(userId).isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT,"User no exist");
+        }
         List<Cart> carts = cartRepository.findByUserId(userId);
         List<CartResponse> responses = cartMapper.dtoToEntityList(carts);
         return responses;
