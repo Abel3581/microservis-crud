@@ -1,6 +1,6 @@
 spring:
   application:
-    name: carritot-service
+    name: carrito-service
   cloud:
     config:
       enabled: true
