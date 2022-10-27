@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<Cart> getCarts(Long userId) {
         User user = getUser(userId);
-        List<Cart> carts = restTemplate.getForObject("http://localhost:8002/cart/byUser/" + userId,List.class);
+        List<Cart> carts = restTemplate.getForObject("http://cart-service/cart/byUser/" + userId,List.class);
         return carts;
     }
     // con openfeign
