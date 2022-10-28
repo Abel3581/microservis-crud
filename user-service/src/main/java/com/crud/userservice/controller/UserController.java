@@ -42,12 +42,12 @@ public class UserController {
     }
     @CircuitBreaker(name = "cartCB", fallbackMethod = "fallbackCreateCart")
     @PostMapping("/saveCart/{userId}")
-    public ResponseEntity<CartResponse> createCart(@PathVariable("userId") Long userId, @RequestBody CartRequest request, RuntimeException e){
+    public ResponseEntity<CartResponse> createCart(@PathVariable("userId") Long userId, @RequestBody CartRequest request){
         CartResponse response = userService.createCart(userId, request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
     private ResponseEntity<CartResponse> fallbackCreateCart(@PathVariable("userId") Long userId, @RequestBody CartRequest request, RuntimeException e){
-        return new ResponseEntity("El usuario" + userId + " no puede abrir mas carts", HttpStatus.OK);
+        return new ResponseEntity("El usuario" + userId + " no puede crear mas carts", HttpStatus.OK);
     }
     @CircuitBreaker(name = "cartCB", fallbackMethod = "fallbackGetCartByUserId")
     @GetMapping("/getCarts/{userId}")
@@ -58,7 +58,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(cartResponses);
     }
     private ResponseEntity<List<CartResponse>> fallbackGetCartByUserId(@PathVariable Long userId, RuntimeException e){
-        return new ResponseEntity("El usuario" + userId + " tiene los carts en la base de datos", HttpStatus.OK);
+        return new ResponseEntity("El usuario " + userId + " tiene los carts en la base de datos", HttpStatus.OK);
     }
 
 }
