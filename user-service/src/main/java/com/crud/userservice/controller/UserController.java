@@ -38,11 +38,11 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(carts);
     }
     private ResponseEntity<List<Cart>> fallbackGetCarts(@PathVariable Long userId, RuntimeException e){
-        return new ResponseEntity("El usuario" + userId + " tiene los carts en la base de datos", HttpStatus.OK);
+        return new ResponseEntity("El usuario " + userId + " tiene los carts en la base de datos", HttpStatus.OK);
     }
     @CircuitBreaker(name = "cartCB", fallbackMethod = "fallbackCreateCart")
     @PostMapping("/saveCart/{userId}")
-    public ResponseEntity<CartResponse> createCart(@PathVariable("userId") Long userId, @RequestBody CartRequest request){
+    public ResponseEntity<CartResponse> createCart(@PathVariable("userId") Long userId, @RequestBody CartRequest request, RuntimeException e){
         CartResponse response = userService.createCart(userId, request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
