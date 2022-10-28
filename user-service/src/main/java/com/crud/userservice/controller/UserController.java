@@ -38,7 +38,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(carts);
     }
     private ResponseEntity<List<Cart>> fallbackGetCarts(@PathVariable Long userId, RuntimeException e){
-        return new ResponseEntity("El usuario " + userId + " tiene los carts en la base de datos", HttpStatus.OK);
+        return new ResponseEntity("El usuario " + userId + " tiene los carts fuera de servicio", HttpStatus.OK);
     }
     @CircuitBreaker(name = "cartCB", fallbackMethod = "fallbackCreateCart")
     @PostMapping("/saveCart/{userId}")
@@ -47,7 +47,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
     private ResponseEntity<CartResponse> fallbackCreateCart(@PathVariable("userId") Long userId, @RequestBody CartRequest request, RuntimeException e){
-        return new ResponseEntity("El usuario" + userId + " no puede crear mas carts", HttpStatus.OK);
+        return new ResponseEntity("El usuario" + userId + " no puede crear carts el servicio esta caido", HttpStatus.OK);
     }
     @CircuitBreaker(name = "cartCB", fallbackMethod = "fallbackGetCartByUserId")
     @GetMapping("/getCarts/{userId}")
@@ -58,7 +58,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(cartResponses);
     }
     private ResponseEntity<List<CartResponse>> fallbackGetCartByUserId(@PathVariable Long userId, RuntimeException e){
-        return new ResponseEntity("El usuario " + userId + " tiene los carts en la base de datos", HttpStatus.OK);
+        return new ResponseEntity("El usuario " + userId + " no puede obtener los carts porque esta caido el servicio", HttpStatus.OK);
     }
-
+    //Todo los metodos privados se usan para mostrar un mensaje cuando el microservicio esta caida en este caso el cart
 }
