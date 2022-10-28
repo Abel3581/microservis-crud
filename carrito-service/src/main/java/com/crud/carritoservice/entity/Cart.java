@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.sql.Timestamp;
+import java.time.LocalTime;
 import java.util.Date;
 
 @Builder
@@ -20,6 +22,6 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private boolean state;
-    private Date createDate;
+    private LocalTime createDate;
     private Long userId;
 }

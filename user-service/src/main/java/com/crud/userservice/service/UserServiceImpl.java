@@ -4,14 +4,17 @@ import com.crud.userservice.dto.UserRequest;
 import com.crud.userservice.dto.UserResponse;
 import com.crud.userservice.entity.User;
 import com.crud.userservice.mapper.UserMapper;
+import com.crud.userservice.model.Cart;
 import com.crud.userservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -22,6 +25,8 @@ public class UserServiceImpl implements UserService{
     private final UserRepository userRepository;
 
     private final UserMapper userMapper;
+
+    private final RestTemplate restTemplate;
     @Override
     public UserResponse create(UserRequest request) {
         if(userRepository.findByEmail(request.getEmail()) != null){
@@ -35,8 +40,14 @@ public class UserServiceImpl implements UserService{
     @Override
     public UserResponse getBy(Long id) {
         User user = getUser(id);
-
         return userMapper.dtoToEntity(user);
+    }
+
+    @Override
+    public List<Cart> getCarts(Long userId) {
+        User user = getUser(userId);
+        List<Cart> carts = restTemplate.getForObject("http://localhost:8002/cart/byUser/" + userId,List.class);
+        return carts;
     }
 
     private User getUser(Long id) {
@@ -46,4 +57,6 @@ public class UserServiceImpl implements UserService{
         }
         return user.get();
     }
+
+
 }
