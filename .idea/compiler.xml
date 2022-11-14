@@ -7,9 +7,6 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="product-service" />
-        <module name="user-service" />
-        <module name="carrito-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
