@@ -1,5 +1,6 @@
 package com.crud.gatewayservice.security;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -12,11 +13,10 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 public class SecurityConfig {
 
     @Bean
-    public SecurityWebFilterChain filterChain(ServerHttpSecurity http){
-        //Cualquier request debe estar autenticado
+    public SecurityWebFilterChain filterChain(@NotNull ServerHttpSecurity http) {
         http.authorizeExchange().anyExchange().authenticated()
                 .and()
-                .oauth2Client(Customizer.withDefaults());
+                .oauth2Login(Customizer.withDefaults());
         http.csrf().disable();
         return http.build();
     }
