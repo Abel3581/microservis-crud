@@ -24,25 +24,26 @@ spring:
           predicates:
             - Path=/user/**
           filters:
-            - RemoveRequestHeader=cookie
+            - RemoveRequestHeader=Cookie
         - id: carrito-service
           uri: lb://cart-service
           predicates:
             - Path=/cart/**
 
-security:
-  oauth2:
-    client:
-      provider:
-        keycloak:
-          authorization-uri: "http://localhost:8080/auth/realms/tutorial-realm/protocol/openid-connect/auth"
-          userinfo-uri: "http://localhost:8080/auth/realms/tutorial-realm/protocol/openid-connect/userinfo"
-          user-name-attribute: preferred_username
-          token-uri: "http://localhost:8080/auth/realms/tutorial-realm/protocol/openid-connect/token"
-      registration:
-        tutorial-client:
-          provider: keycloak
-          client-id: tutorial-client
-          client-secret: f623fdd0-9c74-4103-aa8e-cf663488b9c9
-          authorization-grant-type: authorization_code
-          redirect-uri: "{baseUrl}/login/oauth2/code/tutorial-client"
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            authorization-uri: "http://localhost:8080/auth/realms/tutorial-realm/protocol/openid-connect/auth"
+            userinfo-uri: "http://localhost:8080/auth/realms/tutorial-realm/protocol/openid-connect/userinfo"
+            user-name-attribute: preferred_username
+            token-uri: "http://localhost:8080/auth/realms/tutorial-realm/protocol/openid-connect/token"
+        registration:
+          tutorial-client:
+            provider: keycloak
+            client-id: tutorial-client
+            client-secret: f623fdd0-9c74-4103-aa8e-cf663488b9c9
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/tutorial-client"
+
