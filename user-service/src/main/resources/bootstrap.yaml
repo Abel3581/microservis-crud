@@ -7,6 +7,6 @@ spring:
       uri: http://localhost:8081
   security:
     oauth2:
-      resourceserver:
+      resource-server:
         jwt:
-          issuer-uri: "http://localhost:8080/auth/realms/tutorial-realm"
+          issuer-uri: "http://localhost:8180/realms/tutorial"
