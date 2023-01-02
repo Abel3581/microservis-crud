@@ -43,7 +43,7 @@ spring:
           tutorial-backend:
             provider: keycloak
             client-id: tutorial-backend
-            client-secret: b4e6b3dc-3a30-4e22-83da-0aac832a6d36
+            client-secret: user
 
             authorization-grant-type: authorization_code
             redirect-uri: http://localhost:8080/login/oauth2/code/tutorial-backend
