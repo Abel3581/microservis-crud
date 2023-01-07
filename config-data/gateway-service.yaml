@@ -35,16 +35,16 @@ spring:
       client:
         provider:
           keycloak:
-            authorization-uri: "http://localhost:8180/realms/tutorial/protocol/openid-connect/auth"
-            userinfo-uri: "http://localhost:8180/realms/tutorial/protocol/openid-connect/userinfo"
+            authorization-uri: "http://localhost:8180/realms/tutorial-realm/protocol/openid-connect/auth"
+            userinfo-uri: "http://localhost:8180/realms/tutorial-realm/protocol/openid-connect/userinfo"
             user-name-attribute: preferred_username
-            token-uri: "http://localhost:8180/realms/tutorial/protocol/openid-connect/token"
+            token-uri: "http://localhost:8180/realms/tutorial-realm/protocol/openid-connect/token"
         registration:
-          tutorial-backend:
+          tutorial-client:
             provider: keycloak
-            client-id: tutorial-backend
-            client-secret: user
+            client-id: tutorial-client
+            client-secret: eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIxM2ZkMGE5MC04NWRmLTRiZDgtOGEzNS01MGVkOWYyNTc2MjkifQ.eyJleHAiOjE2NzMxODc4OTksImlhdCI6MTY3MzEwMTQ5OSwianRpIjoiODQyODRiYjUtMjMzMi00MGFiLWFhYWEtZTkxNGNhYWI5NGU0IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgwL3JlYWxtcy90dXRvcmlhbC1yZWFsbSIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODE4MC9yZWFsbXMvdHV0b3JpYWwtcmVhbG0iLCJ0eXAiOiJJbml0aWFsQWNjZXNzVG9rZW4ifQ.ELLYjGbuF7Kj5fltZF3Z4vUqs2_cMx6Nnk65-oaAOUM
 
             authorization-grant-type: authorization_code
-            redirect-uri: http://localhost:8080/login/oauth2/code/tutorial-backend
+            redirect-uri: "{baseUrl}/login/oauth2/code/tutorial-client"
 
